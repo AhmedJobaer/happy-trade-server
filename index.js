@@ -20,6 +20,7 @@ async function run() {
     try {
         const categoryCollections = client.db('happyTrade').collection('category');
         const productCollections = client.db('happyTrade').collection('products');
+        const usersCollections = client.db('happyTrade').collection('users');
 
 
         app.get('/categorySection', async (req, res) => {
@@ -34,6 +35,13 @@ async function run() {
             const query = { category_id: id };
             const products = await productCollections.find(query).toArray();
             res.send(products);
+        })
+
+
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await usersCollections.insertOne(user);
+            res.send(result);
         })
     }
     finally {
