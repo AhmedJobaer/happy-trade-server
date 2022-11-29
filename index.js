@@ -90,11 +90,11 @@ async function run() {
             res.send(user);
         })
 
-        /*   app.post('/bookingProducts', async (req, res) => {
-              const user = req.body;
-              const result = await bookingCollections.insertOne(user);
-              res.send(result);
-          }) */
+        app.post('/bookingProducts', async (req, res) => {
+            const user = req.body;
+            const result = await bookingCollections.insertOne(user);
+            res.send(result);
+        })
 
         app.delete('/myProducts/:id', async (req, res) => {
             const id = req.params.id;
@@ -111,6 +111,9 @@ async function run() {
             const user = await usersCollections.find(query).toArray();
             res.send(user);
         })
+
+
+
     }
     finally {
 
