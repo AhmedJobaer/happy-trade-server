@@ -103,8 +103,26 @@ async function run() {
             const result = await productCollections.deleteOne(filter);
             res.send(result);
         })
+        app.delete('/allUsers/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const filter = { _id: ObjectId(id) };
+            const result = await usersCollections.deleteOne(filter);
+            res.send(result);
+        })
 
-
+        app.put('/allUsers/admin/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    role: 'admin'
+                }
+            }
+            const result = await usersCollections.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
 
         app.get('/allUser', async (req, res) => {
             const query = {};
