@@ -40,6 +40,7 @@ async function run() {
         const categoryCollections = client.db('happyTrade').collection('category');
         const productCollections = client.db('happyTrade').collection('products');
         const usersCollections = client.db('happyTrade').collection('users');
+        const bookingCollections = client.db('happyTrade').collection('bookingProducts');
 
 
         app.get('/categorySection', async (req, res) => {
@@ -81,6 +82,16 @@ async function run() {
             const result = await productCollections.insertOne(user);
             res.send(result);
         })
+
+        app.get('/myProducts/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await productCollections.find(query).toArray();
+            res.send(user);
+        })
+
+
+
 
         app.get('/allUser', async (req, res) => {
             const query = {};
